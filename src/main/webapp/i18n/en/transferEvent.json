@@ -1,0 +1,23 @@
+{
+    "activemftApp": {
+        "transferEvent" : {
+            "home": {
+                "title": "TransferEvents",
+                "createLabel": "Create a new TransferEvent",
+                "createOrEditLabel": "Create or edit a TransferEvent"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete TransferEvent {{ id }}?"
+            },
+            "detail": {
+                "title": "TransferEvent"
+            },
+            "transferId": "TransferId",
+            "state": "State",
+            "timestamp": "Timestamp",
+            "size": "Size",
+            "filename": "Filename",
+            "transferJob": "transferJob"
+        }
+    }
+}

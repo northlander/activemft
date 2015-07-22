@@ -1,0 +1,70 @@
+
+<div>
+    <h2><span translate="activemftApp.transferEvent.detail.title">TransferEvent</span> {{transferEvent.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="entity.detail.field">Field</th>
+                    <th translate="entity.detail.value">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <span translate="activemftApp.transferEvent.transferId">TransferId</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{transferEvent.transferId}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="activemftApp.transferEvent.state">State</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{transferEvent.state}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="activemftApp.transferEvent.timestamp">Timestamp</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{transferEvent.timestamp}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="activemftApp.transferEvent.size">Size</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{transferEvent.size}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="activemftApp.transferEvent.filename">Filename</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{transferEvent.filename}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="activemftApp.transferEvent.transferJob">transferJob</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{transferEvent.transferJob.name}}" readonly>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            ui-sref="transferEvent"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

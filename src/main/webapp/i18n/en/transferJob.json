@@ -1,0 +1,33 @@
+{
+    "activemftApp": {
+        "transferJob" : {
+            "home": {
+                "title": "TransferJobs",
+                "createLabel": "Create a new TransferJob",
+                "createOrEditLabel": "Create or edit a TransferJob"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete TransferJob {{ id }}?"
+            },
+            "detail": {
+                "title": "TransferJob"
+            },
+            "name": "Name",
+            "description": "Description",
+            "cronExpression": "CronExpression",
+            "archive": "Archive",
+            "enabled": "Enabled",
+            "sourceUrl": "SourceUrl",
+            "sourceFilepattern": "SourceFilepattern",
+            "sourceType": "SourceType",
+            "sourceUsername": "SourceUsername",
+            "sourcePassword": "SourcePassword",
+            "targetUrl": "TargetUrl",
+            "targetType": "TargetType",
+            "targetFilename": "TargetFilename",
+            "targetUsername": "TargetUsername",
+            "targetPassword": "TargetPassword",
+            "transferEvent": "transferEvent"
+        }
+    }
+}

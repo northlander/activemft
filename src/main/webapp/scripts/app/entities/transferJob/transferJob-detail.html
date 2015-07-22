@@ -1,0 +1,142 @@
+
+<div>
+    <h2><span translate="activemftApp.transferJob.detail.title">TransferJob</span> {{transferJob.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="entity.detail.field">Field</th>
+                    <th translate="entity.detail.value">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <span translate="activemftApp.transferJob.name">Name</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{transferJob.name}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="activemftApp.transferJob.description">Description</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{transferJob.description}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="activemftApp.transferJob.cronExpression">CronExpression</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{transferJob.cronExpression}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="activemftApp.transferJob.archive">Archive</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{transferJob.archive}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="activemftApp.transferJob.enabled">Enabled</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{transferJob.enabled}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="activemftApp.transferJob.sourceUrl">SourceUrl</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{transferJob.sourceUrl}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="activemftApp.transferJob.sourceFilepattern">SourceFilepattern</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{transferJob.sourceFilepattern}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="activemftApp.transferJob.sourceType">SourceType</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{transferJob.sourceType}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="activemftApp.transferJob.sourceUsername">SourceUsername</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{transferJob.sourceUsername}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="activemftApp.transferJob.sourcePassword">SourcePassword</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{transferJob.sourcePassword}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="activemftApp.transferJob.targetUrl">TargetUrl</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{transferJob.targetUrl}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="activemftApp.transferJob.targetType">TargetType</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{transferJob.targetType}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="activemftApp.transferJob.targetFilename">TargetFilename</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{transferJob.targetFilename}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="activemftApp.transferJob.targetUsername">TargetUsername</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{transferJob.targetUsername}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="activemftApp.transferJob.targetPassword">TargetPassword</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{transferJob.targetPassword}}" readonly>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            ui-sref="transferJob"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

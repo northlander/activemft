@@ -1,0 +1,272 @@
+<div>
+
+    <h2 translate="activemftApp.transferJob.home.title">TransferJobs</h2>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#saveTransferJobModal" ng-click="clear()">
+                    <span class="glyphicon glyphicon-flash"></span> <span translate="activemftApp.transferJob.home.createLabel">Create a new TransferJob</span>
+                </button>
+            </div>
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a TransferJob</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="saveTransferJobModal" tabindex="-1" role="dialog" aria-labelledby="myTransferJobLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" id="myTransferJobLabel" translate="activemftApp.transferJob.home.createOrEditLabel">Create or edit a TransferJob</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>ID</label>
+                            <input type="text" class="form-control" name="id"
+                                   ng-model="transferJob.id" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label translate="activemftApp.transferJob.name">Name</label>
+                            <input type="text" class="form-control" name="name"
+                                   ng-model="transferJob.name" required>
+
+                            <div ng-show="editForm.name.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label translate="activemftApp.transferJob.description">Description</label>
+                            <input type="text" class="form-control" name="description"
+                                   ng-model="transferJob.description">
+
+                        </div>
+                        <div class="form-group">
+                            <label translate="activemftApp.transferJob.cronExpression">CronExpression</label>
+                            <input type="text" class="form-control" name="cronExpression"
+                                   ng-model="transferJob.cronExpression">
+
+                        </div>
+                        <div class="form-group">
+                            <label translate="activemftApp.transferJob.archive">Archive</label>
+                            <input type="checkbox" class="form-control" name="archive"
+                                   ng-model="transferJob.archive">
+
+                        </div>
+                        <div class="form-group">
+                            <label translate="activemftApp.transferJob.enabled">Enabled</label>
+                            <input type="checkbox" class="form-control" name="enabled"
+                                   ng-model="transferJob.enabled">
+
+                        </div>
+                        <div class="form-group">
+                            <label translate="activemftApp.transferJob.sourceUrl">SourceUrl</label>
+                            <input type="text" class="form-control" name="sourceUrl"
+                                   ng-model="transferJob.sourceUrl" required>
+
+                            <div ng-show="editForm.sourceUrl.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.sourceUrl.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label translate="activemftApp.transferJob.sourceFilepattern">SourceFilepattern</label>
+                            <input type="text" class="form-control" name="sourceFilepattern"
+                                   ng-model="transferJob.sourceFilepattern">
+
+                        </div>
+                        <div class="form-group">
+                            <label translate="activemftApp.transferJob.sourceType">SourceType</label>
+                            <input type="text" class="form-control" name="sourceType"
+                                   ng-model="transferJob.sourceType" required>
+
+                            <div ng-show="editForm.sourceType.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.sourceType.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label translate="activemftApp.transferJob.sourceUsername">SourceUsername</label>
+                            <input type="text" class="form-control" name="sourceUsername"
+                                   ng-model="transferJob.sourceUsername">
+
+                        </div>
+                        <div class="form-group">
+                            <label translate="activemftApp.transferJob.sourcePassword">SourcePassword</label>
+                            <input type="text" class="form-control" name="sourcePassword"
+                                   ng-model="transferJob.sourcePassword">
+
+                        </div>
+                        <div class="form-group">
+                            <label translate="activemftApp.transferJob.targetUrl">TargetUrl</label>
+                            <input type="text" class="form-control" name="targetUrl"
+                                   ng-model="transferJob.targetUrl" required>
+
+                            <div ng-show="editForm.targetUrl.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.targetUrl.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label translate="activemftApp.transferJob.targetType">TargetType</label>
+                            <input type="text" class="form-control" name="targetType"
+                                   ng-model="transferJob.targetType" required>
+
+                            <div ng-show="editForm.targetType.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.targetType.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label translate="activemftApp.transferJob.targetFilename">TargetFilename</label>
+                            <input type="text" class="form-control" name="targetFilename"
+                                   ng-model="transferJob.targetFilename">
+
+                        </div>
+                        <div class="form-group">
+                            <label translate="activemftApp.transferJob.targetUsername">TargetUsername</label>
+                            <input type="text" class="form-control" name="targetUsername"
+                                   ng-model="transferJob.targetUsername">
+
+                        </div>
+                        <div class="form-group">
+                            <label translate="activemftApp.transferJob.targetPassword">TargetPassword</label>
+                            <input type="text" class="form-control" name="targetPassword"
+                                   ng-model="transferJob.targetPassword">
+
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="editForm.$invalid" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteTransferJobConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDelete(transferJob.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p translate="activemftApp.transferJob.delete.question" translate-values="{id: '{{transferJob.id}}'}">Are you sure you want to delete this TransferJob?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th translate="activemftApp.transferJob.name">Name</th>
+                    <th translate="activemftApp.transferJob.description">Description</th>
+                    <th translate="activemftApp.transferJob.cronExpression">CronExpression</th>
+                    <th translate="activemftApp.transferJob.archive">Archive</th>
+                    <th translate="activemftApp.transferJob.enabled">Enabled</th>
+                    <th translate="activemftApp.transferJob.sourceUrl">SourceUrl</th>
+                    <th translate="activemftApp.transferJob.sourceFilepattern">SourceFilepattern</th>
+                    <th translate="activemftApp.transferJob.sourceType">SourceType</th>
+                    <th translate="activemftApp.transferJob.sourceUsername">SourceUsername</th>
+                    <th translate="activemftApp.transferJob.sourcePassword">SourcePassword</th>
+                    <th translate="activemftApp.transferJob.targetUrl">TargetUrl</th>
+                    <th translate="activemftApp.transferJob.targetType">TargetType</th>
+                    <th translate="activemftApp.transferJob.targetFilename">TargetFilename</th>
+                    <th translate="activemftApp.transferJob.targetUsername">TargetUsername</th>
+                    <th translate="activemftApp.transferJob.targetPassword">TargetPassword</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="transferJob in transferJobs">
+                    <td><a ui-sref="transferJobDetail({id:transferJob.id})">{{transferJob.id}}</a></td>
+                    <td>{{transferJob.name}}</td>
+                    <td>{{transferJob.description}}</td>
+                    <td>{{transferJob.cronExpression}}</td>
+                    <td>{{transferJob.archive}}</td>
+                    <td>{{transferJob.enabled}}</td>
+                    <td>{{transferJob.sourceUrl}}</td>
+                    <td>{{transferJob.sourceFilepattern}}</td>
+                    <td>{{transferJob.sourceType}}</td>
+                    <td>{{transferJob.sourceUsername}}</td>
+                    <td>{{transferJob.sourcePassword}}</td>
+                    <td>{{transferJob.targetUrl}}</td>
+                    <td>{{transferJob.targetType}}</td>
+                    <td>{{transferJob.targetFilename}}</td>
+                    <td>{{transferJob.targetUsername}}</td>
+                    <td>{{transferJob.targetPassword}}</td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="transferJobDetail({id:transferJob.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ng-click="showUpdate(transferJob.id)"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ng-click="delete(transferJob.id)"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pager">
+                <li ng-show="links['first']" ng-click="loadPage(links['first'])"><a href="#">&lt;&lt;</a></li>
+                <li ng-show="links['prev']" ng-click="loadPage(links['prev'])"><a href="#">&lt;</a></li>
+                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a href="#">&gt;</a></li>
+                <li ng-show="links['last']" ng-click="loadPage(links['last'])"><a href="#">&gt;&gt;</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>

@@ -1,0 +1,178 @@
+{
+    "relationships": [
+        {
+            "relationshipId": 1,
+            "relationshipName": "transferEvent",
+            "relationshipNameCapitalized": "TransferEvent",
+            "relationshipFieldName": "transferEvent",
+            "otherEntityName": "transferEvent",
+            "relationshipType": "one-to-many",
+            "otherEntityNameCapitalized": "TransferEvent",
+            "otherEntityRelationshipName": "transferJob"
+        }
+    ],
+    "fields": [
+        {
+            "fieldId": 1,
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldNameCapitalized": "Name",
+            "fieldNameUnderscored": "name",
+            "fieldInJavaBeanMethod": "Name",
+            "fieldValidate": true,
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldId": 2,
+            "fieldName": "description",
+            "fieldType": "String",
+            "fieldNameCapitalized": "Description",
+            "fieldNameUnderscored": "description",
+            "fieldInJavaBeanMethod": "Description",
+            "fieldValidate": false
+        },
+        {
+            "fieldId": 3,
+            "fieldName": "cronExpression",
+            "fieldType": "String",
+            "fieldNameCapitalized": "CronExpression",
+            "fieldNameUnderscored": "cron_expression",
+            "fieldInJavaBeanMethod": "CronExpression",
+            "fieldValidate": false
+        },
+        {
+            "fieldId": 4,
+            "fieldName": "archive",
+            "fieldType": "Boolean",
+            "fieldNameCapitalized": "Archive",
+            "fieldNameUnderscored": "archive",
+            "fieldInJavaBeanMethod": "Archive",
+            "fieldValidate": false
+        },
+        {
+            "fieldId": 5,
+            "fieldName": "enabled",
+            "fieldType": "Boolean",
+            "fieldNameCapitalized": "Enabled",
+            "fieldNameUnderscored": "enabled",
+            "fieldInJavaBeanMethod": "Enabled",
+            "fieldValidate": false
+        },
+        {
+            "fieldId": 6,
+            "fieldName": "sourceUrl",
+            "fieldType": "String",
+            "fieldNameCapitalized": "SourceUrl",
+            "fieldNameUnderscored": "source_url",
+            "fieldInJavaBeanMethod": "SourceUrl",
+            "fieldValidate": true,
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldId": 7,
+            "fieldName": "sourceFilepattern",
+            "fieldType": "String",
+            "fieldNameCapitalized": "SourceFilepattern",
+            "fieldNameUnderscored": "source_filepattern",
+            "fieldInJavaBeanMethod": "SourceFilepattern",
+            "fieldValidate": false
+        },
+        {
+            "fieldId": 8,
+            "fieldName": "sourceType",
+            "fieldType": "String",
+            "fieldNameCapitalized": "SourceType",
+            "fieldNameUnderscored": "source_type",
+            "fieldInJavaBeanMethod": "SourceType",
+            "fieldValidate": true,
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldId": 9,
+            "fieldName": "sourceUsername",
+            "fieldType": "String",
+            "fieldNameCapitalized": "SourceUsername",
+            "fieldNameUnderscored": "source_username",
+            "fieldInJavaBeanMethod": "SourceUsername",
+            "fieldValidate": false
+        },
+        {
+            "fieldId": 10,
+            "fieldName": "sourcePassword",
+            "fieldType": "String",
+            "fieldNameCapitalized": "SourcePassword",
+            "fieldNameUnderscored": "source_password",
+            "fieldInJavaBeanMethod": "SourcePassword",
+            "fieldValidate": false
+        },
+        {
+            "fieldId": 11,
+            "fieldName": "targetUrl",
+            "fieldType": "String",
+            "fieldNameCapitalized": "TargetUrl",
+            "fieldNameUnderscored": "target_url",
+            "fieldInJavaBeanMethod": "TargetUrl",
+            "fieldValidate": true,
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldId": 12,
+            "fieldName": "targetType",
+            "fieldType": "String",
+            "fieldNameCapitalized": "TargetType",
+            "fieldNameUnderscored": "target_type",
+            "fieldInJavaBeanMethod": "TargetType",
+            "fieldValidate": true,
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldId": 13,
+            "fieldName": "targetFilename",
+            "fieldType": "String",
+            "fieldNameCapitalized": "TargetFilename",
+            "fieldNameUnderscored": "target_filename",
+            "fieldInJavaBeanMethod": "TargetFilename",
+            "fieldValidate": false
+        },
+        {
+            "fieldId": 14,
+            "fieldName": "targetUsername",
+            "fieldType": "String",
+            "fieldNameCapitalized": "TargetUsername",
+            "fieldNameUnderscored": "target_username",
+            "fieldInJavaBeanMethod": "TargetUsername",
+            "fieldValidate": false
+        },
+        {
+            "fieldId": 15,
+            "fieldName": "targetPassword",
+            "fieldType": "String",
+            "fieldNameCapitalized": "TargetPassword",
+            "fieldNameUnderscored": "target_password",
+            "fieldInJavaBeanMethod": "TargetPassword",
+            "fieldValidate": false
+        }
+    ],
+    "fieldsContainOwnerManyToMany": false,
+    "fieldsContainOwnerOneToOne": false,
+    "fieldsContainOneToMany": true,
+    "fieldsContainLocalDate": false,
+    "fieldsContainCustomTime": false,
+    "fieldsContainBigDecimal": false,
+    "fieldsContainDateTime": false,
+    "fieldsContainDate": false,
+    "changelogDate": "20150713214809",
+    "dto": "no",
+    "pagination": "pager",
+    "validation": true
+}

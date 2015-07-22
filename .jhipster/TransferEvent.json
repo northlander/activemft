@@ -1,0 +1,85 @@
+{
+    "relationships": [
+        {
+            "relationshipId": 1,
+            "relationshipName": "transferJob",
+            "relationshipNameCapitalized": "TransferJob",
+            "relationshipFieldName": "transferJob",
+            "otherEntityName": "transferJob",
+            "relationshipType": "many-to-one",
+            "otherEntityNameCapitalized": "TransferJob",
+            "otherEntityField": "name"
+        }
+    ],
+    "fields": [
+        {
+            "fieldId": 1,
+            "fieldName": "transferId",
+            "fieldType": "String",
+            "fieldNameCapitalized": "TransferId",
+            "fieldNameUnderscored": "transfer_id",
+            "fieldInJavaBeanMethod": "TransferId",
+            "fieldValidate": true,
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldId": 2,
+            "fieldName": "state",
+            "fieldType": "String",
+            "fieldNameCapitalized": "State",
+            "fieldNameUnderscored": "state",
+            "fieldInJavaBeanMethod": "State",
+            "fieldValidate": true,
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldId": 3,
+            "fieldName": "timestamp",
+            "fieldType": "DateTime",
+            "fieldNameCapitalized": "Timestamp",
+            "fieldNameUnderscored": "timestamp",
+            "fieldInJavaBeanMethod": "Timestamp",
+            "fieldValidate": true,
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldId": 4,
+            "fieldName": "size",
+            "fieldType": "Integer",
+            "fieldNameCapitalized": "Size",
+            "fieldNameUnderscored": "size",
+            "fieldInJavaBeanMethod": "Size",
+            "fieldValidate": true,
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldId": 5,
+            "fieldName": "filename",
+            "fieldType": "String",
+            "fieldNameCapitalized": "Filename",
+            "fieldNameUnderscored": "filename",
+            "fieldInJavaBeanMethod": "Filename",
+            "fieldValidate": false
+        }
+    ],
+    "fieldsContainOwnerManyToMany": false,
+    "fieldsContainOwnerOneToOne": false,
+    "fieldsContainOneToMany": false,
+    "fieldsContainLocalDate": false,
+    "fieldsContainCustomTime": true,
+    "fieldsContainBigDecimal": false,
+    "fieldsContainDateTime": true,
+    "fieldsContainDate": false,
+    "changelogDate": "20150713215056",
+    "dto": "no",
+    "pagination": "pagination",
+    "validation": true
+}

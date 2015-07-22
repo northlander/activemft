@@ -1,0 +1,206 @@
+<div>
+
+    <h2 translate="activemftApp.transferEvent.home.title">TransferEvents</h2>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#saveTransferEventModal" ng-click="clear()">
+                    <span class="glyphicon glyphicon-flash"></span> <span translate="activemftApp.transferEvent.home.createLabel">Create a new TransferEvent</span>
+                </button>
+            </div>
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a TransferEvent</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="saveTransferEventModal" tabindex="-1" role="dialog" aria-labelledby="myTransferEventLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" id="myTransferEventLabel" translate="activemftApp.transferEvent.home.createOrEditLabel">Create or edit a TransferEvent</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>ID</label>
+                            <input type="text" class="form-control" name="id"
+                                   ng-model="transferEvent.id" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label translate="activemftApp.transferEvent.transferId">TransferId</label>
+                            <input type="text" class="form-control" name="transferId"
+                                   ng-model="transferEvent.transferId" required>
+
+                            <div ng-show="editForm.transferId.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.transferId.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label translate="activemftApp.transferEvent.state">State</label>
+                            <input type="text" class="form-control" name="state"
+                                   ng-model="transferEvent.state" required>
+
+                            <div ng-show="editForm.state.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.state.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label translate="activemftApp.transferEvent.timestamp">Timestamp</label>
+                            <input type="datetime-local" class="form-control" name="timestamp"
+                                   ng-model="transferEvent.timestamp" ng-model-options="{timezone: 'UTC'}" required>
+
+                            <div ng-show="editForm.timestamp.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.timestamp.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.timestamp.$error.datetimelocal" translate="entity.validation.datetimelocal">
+                                    This field should be a date and time.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label translate="activemftApp.transferEvent.size">Size</label>
+                            <input type="number" class="form-control" name="size"
+                                   ng-model="transferEvent.size" required>
+
+                            <div ng-show="editForm.size.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.size.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.size.$error.number" translate="entity.validation.number">
+                                    This field should be a number.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label translate="activemftApp.transferEvent.filename">Filename</label>
+                            <input type="text" class="form-control" name="filename"
+                                   ng-model="transferEvent.filename">
+
+                        </div>
+
+                        <div class="form-group">
+                            <label translate="activemftApp.transferEvent.transferJob">transferJob</label>
+                            <select class="form-control" name="transferJob" ng-model="transferEvent.transferJob.id" ng-options="transferJob.id as transferJob.name for transferJob in transferjobs">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="editForm.$invalid" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteTransferEventConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDelete(transferEvent.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p translate="activemftApp.transferEvent.delete.question" translate-values="{id: '{{transferEvent.id}}'}">Are you sure you want to delete this TransferEvent?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th translate="activemftApp.transferEvent.transferId">TransferId</th>
+                    <th translate="activemftApp.transferEvent.state">State</th>
+                    <th translate="activemftApp.transferEvent.timestamp">Timestamp</th>
+                    <th translate="activemftApp.transferEvent.size">Size</th>
+                    <th translate="activemftApp.transferEvent.filename">Filename</th>
+                    <th translate="activemftApp.transferEvent.transferJob">transferJob</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="transferEvent in transferEvents">
+                    <td><a ui-sref="transferEventDetail({id:transferEvent.id})">{{transferEvent.id}}</a></td>
+                    <td>{{transferEvent.transferId}}</td>
+                    <td>{{transferEvent.state}}</td>
+                    <td>{{transferEvent.timestamp}}</td>
+                    <td>{{transferEvent.size}}</td>
+                    <td>{{transferEvent.filename}}</td>
+                    <td>{{transferEvent.transferJob.name}}</td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="transferEventDetail({id:transferEvent.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ng-click="showUpdate(transferEvent.id)"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ng-click="delete(transferEvent.id)"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pagination">
+                <li ng-show="links['first']" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                <li ng-show="links['prev']" ng-click="loadPage(links['prev'])"><a>&lt;</a></li>
+                <li ng-show="page > 2" ng-click="loadPage(page - 2)"><a>{{page - 2}}</a></li>
+                <li ng-show="page > 1" ng-click="loadPage(page - 1)"><a>{{page - 1}}</a></li>
+                <li class="active"><a>{{page}}</a></li>
+                <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 1}}</a></li>
+                <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 2}}</a></li>
+                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                <li ng-show="links['last']" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
