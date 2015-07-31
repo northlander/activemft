@@ -42,7 +42,7 @@ public class TransferJobResource {
     private TransferJobRepository transferJobRepository;
     
     @Inject
-    private ReceiverService receiveService;
+    private ReceiverService receiverService;
 
     @Inject
     private TransferJobSearchRepository transferJobSearchRepository;
@@ -66,7 +66,7 @@ public class TransferJobResource {
         }
         transferJob = transferJobRepository.save(transferJob);
         transferJob = transferJobSearchRepository.save(transferJob);
-        receiveService.initTransferJob(transferJob);
+        receiverService.initTransferJob(transferJob);
         
         
         return ResponseEntity.created(new URI("/api/transferJobs/" + transferJob.getId())).build();
@@ -90,7 +90,7 @@ public class TransferJobResource {
         }
         transferJob = transferJobRepository.save(transferJob);
         transferJob = transferJobSearchRepository.save(transferJob);
-        receiveService.reinitTransferJob(transferJob);
+        receiverService.reinitTransferJob(transferJob);
         
         return ResponseEntity.ok().build();
     }
@@ -142,7 +142,7 @@ public class TransferJobResource {
         TransferJob transferJob = transferJobRepository.findOne(id);
         
         try{
-        	receiveService.deinitTransferJob(transferJob);	
+        	receiverService.deinitTransferJob(transferJob);	
         }catch(Exception e){
         	log.warn("Unabled to deinit job "+ transferJob.getName() + ". Already deleted?",e);
         }

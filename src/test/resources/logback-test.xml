@@ -10,6 +10,8 @@
     <logger name="co.nordlander.activemft" level="DEBUG"/>
     <logger name="org.hibernate.ejb.HibernatePersistence" level="OFF"/>
     <logger name="org.apache.catalina.startup.DigesterFactory" level="OFF"/>
+    <logger name="org.apache.activemq" level="INFO"/>
+    <logger name="org.apache.sshd" level="INFO"/>
 
     <root level="WARN">
         <appender-ref ref="CONSOLE"/>

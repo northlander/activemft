@@ -1,14 +1,24 @@
 package co.nordlander.activemft.web.rest;
 
-import co.nordlander.activemft.Application;
-import co.nordlander.activemft.domain.TransferJob;
-import co.nordlander.activemft.repository.TransferJobRepository;
-import co.nordlander.activemft.repository.search.TransferJobSearchRepository;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.hamcrest.Matchers.hasItem;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -20,13 +30,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import co.nordlander.activemft.Application;
+import co.nordlander.activemft.domain.TransferJob;
+import co.nordlander.activemft.repository.TransferEventRepository;
+import co.nordlander.activemft.repository.TransferJobRepository;
+import co.nordlander.activemft.repository.search.TransferJobSearchRepository;
+import co.nordlander.activemft.service.ReceiverService;
 
 /**
  * Test class for the TransferJobResource REST controller.
@@ -71,12 +80,15 @@ public class TransferJobResourceTest {
     private static final String UPDATED_TARGET_USERNAME = "UPDATED_TEXT";
     private static final String DEFAULT_TARGET_PASSWORD = "SAMPLE_TEXT";
     private static final String UPDATED_TARGET_PASSWORD = "UPDATED_TEXT";
-
+    
     @Inject
     private TransferJobRepository transferJobRepository;
 
     @Inject
     private TransferJobSearchRepository transferJobSearchRepository;
+    
+    @Mock
+    private ReceiverService receiverService;
 
     private MockMvc restTransferJobMockMvc;
 
@@ -88,7 +100,9 @@ public class TransferJobResourceTest {
         TransferJobResource transferJobResource = new TransferJobResource();
         ReflectionTestUtils.setField(transferJobResource, "transferJobRepository", transferJobRepository);
         ReflectionTestUtils.setField(transferJobResource, "transferJobSearchRepository", transferJobSearchRepository);
+        ReflectionTestUtils.setField(transferJobResource, "receiverService", receiverService);
         this.restTransferJobMockMvc = MockMvcBuilders.standaloneSetup(transferJobResource).build();
+        
     }
 
     @Before
@@ -109,6 +123,7 @@ public class TransferJobResourceTest {
         transferJob.setTargetFilename(DEFAULT_TARGET_FILENAME);
         transferJob.setTargetUsername(DEFAULT_TARGET_USERNAME);
         transferJob.setTargetPassword(DEFAULT_TARGET_PASSWORD);
+
     }
 
     @Test

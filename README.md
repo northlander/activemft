@@ -24,6 +24,13 @@ The heart of ActiveMFT is a message broker, Apache Artemis. Every file received 
 A number of message driven workers will then dispatch the files to the target system from the queue. If it fails, redelivery is attempted.
 
 
+# Deployment
+The released deployment is a plain old WAR to be deployd in Apache Tomcat.
+
+You may theoretically also run the war a plain java program: "java -jar activemft-0.0.1-SNAPSHOT.war --spring.profiles.active=prod".
+
+Future experiments will show if deploying ActiveMFT in PaaS soultions (heroku, cloud foundry, open shift, ...) is a good idea. There is some local disk space required for the Apache Artemis message buffer after all.
+
 # Roadmap
 
 ### Protocols
@@ -42,5 +49,6 @@ The idea is to support the following protocols.
 - Angular JS frontend.
 - jhipster generator
 - liquibase database model
+- Apache Artemis
 
 
