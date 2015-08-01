@@ -23,9 +23,7 @@ import javax.jms.Message;
 import org.apache.activemq.util.ByteArrayOutputStream;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -45,51 +43,34 @@ import co.nordlander.activemft.repository.TransferEventRepository;
 import co.nordlander.activemft.service.util.Constants;
 
 /**
- * Testing SftpReceiver a single module.
- * Actually an integration test as it starts a SFTP server and a JMS broker.
+ * Unit/Integration test for FileSender Module.
+ * Embedds JMS broker.
  * @author petter
- * 
+ *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = BrokerConfig.class)
-public class SftpReceiverUnitTest {
-
-	private static final Logger log = LoggerFactory.getLogger(SftpReceiverUnitTest.class);
-	protected SftpReceiver sftpReceiver;
+public class FileSenderUnitTest {
+	
+	private static final Logger log = LoggerFactory.getLogger(FileSenderUnitTest.class);
 	
 	@ClassRule public static TemporaryFolder temporaryFolder = new TemporaryFolder();
 	
 	@Inject JmsTemplate jmsTemplate;
 	
-	static protected EmbeddedSftp sftpServer;
+	protected FileReceiver fileReceiver;
 
-	static File sftpRootFolder; // Physical path to SFTP root folder
-	protected File sourceFolder; // Physical path to SFTP sub-folder
-	
-	static protected String sftpUsername = "sftpuser";
-	static protected String sftpPassword = "sftpPassword";
-	
 	// Encoding trip-wire: "I can eat glass and it doesn't hurt me." - in old norse. 
 	protected static final String SAMPLE_TEXT = "ᛖᚴ ᚷᛖᛏ ᛖᛏᛁ ᚧ ᚷᛚᛖᚱ ᛘᚾ ᚦᛖᛋᛋ ᚨᚧ ᚡᛖ ᚱᚧᚨ ᛋᚨᚱ";
-	
+
+	protected File sourceFolder; // Physical path to file.
+
 	protected TransferEventRepository mockedEventRepo;
-	
-	@BeforeClass
-	public static void setupSftp() throws IOException{
-		sftpRootFolder = temporaryFolder.newFolder("sftproot");
-		sftpServer = new EmbeddedSftp(0, sftpUsername, sftpPassword, sftpRootFolder);
-	}
-	
-	@AfterClass
-	public static void tearDownSftp(){
-		sftpServer.stop();
-		sftpServer.close();
-	}
 	
 	@Before
 	public void setupTest(){
+		fileReceiver = new FileReceiver();
 		
-		sftpReceiver = new SftpReceiver();
 		mockedEventRepo = mock(TransferEventRepository.class);
 		
 		// Make saveAndFlush return whatever is supposed to be saved to avoid NPEs.
@@ -101,22 +82,19 @@ public class SftpReceiverUnitTest {
 			}
 		});
 		
-		sftpReceiver.eventRepo = mockedEventRepo;
 		jmsTemplate.setReceiveTimeout(1000L);
-		sftpReceiver.jmsTemplate = jmsTemplate;
 		
-		sftpReceiver.setup();
+		fileReceiver.eventRepo = mockedEventRepo;
+		fileReceiver.jmsTemplate = jmsTemplate;
 		
-		sourceFolder = new File(sftpRootFolder,"files");
-		sourceFolder.mkdir();
-		log.info("Test setup done");
+		sourceFolder = temporaryFolder.getRoot();
 	}
 	
 	/**
-	 * A long test that verifies a receive of two files from SFTP with filter.
+	 * A long test that verifies a receive of two files from File with filter.
 	 */
 	@Test
-	public void testSftpReceive() throws FileNotFoundException, Exception{
+	public void testFileReceive() throws FileNotFoundException, Exception{
 		
 		final File file1 = new File(sourceFolder,"file1.xml");
 		final File file2 = new File(sourceFolder,"file2.xml");
@@ -126,15 +104,14 @@ public class SftpReceiverUnitTest {
 		FileUtils.write(file2, SAMPLE_TEXT + SAMPLE_TEXT);
 		FileUtils.write(notIncludedFile, "not important");
 		
-		
 		final long file1Size = file1.length();
 		final long file2Size = file2.length();
 		
-		TransferJob job = sftpJobTemplate();
-		job.setSourceUrl("sftp://localhost:"+sftpServer.getPort()+"/files");
+		TransferJob job = fileJobTemplate();
+		job.setSourceUrl("file://"+sourceFolder.getCanonicalPath());
 		job.setSourceFilepattern("*.xml");
 		
-		sftpReceiver.receiveFiles(job);
+		fileReceiver.receiveFiles(job);
 		
 		Message resultMsg1 = jmsTemplate.receive("transfers");
 		Message resultMsg2 = jmsTemplate.receive("transfers");
@@ -146,14 +123,14 @@ public class SftpReceiverUnitTest {
 
 		assertEquals("test-job",resultMsg1.getStringProperty("jobName"));
 		assertNotNull(resultMsg1.getStringProperty("jobId"));
-		assertEquals("/files/file1.xml",resultMsg1.getStringProperty("filepath"));
+		assertEquals(file1.getCanonicalPath(),resultMsg1.getStringProperty("filepath"));
 		assertEquals("file1.xml",resultMsg1.getStringProperty("filename"));
 		assertEquals(file1Size,resultMsg1.getLongProperty("size"));
 		assertEquals(SAMPLE_TEXT,readMessageContentUTF8(resultMsg1));
 		
 		assertEquals("test-job",resultMsg2.getStringProperty("jobName"));
 		assertNotNull(resultMsg2.getStringProperty("jobId"));
-		assertEquals("/files/file2.xml",resultMsg2.getStringProperty("filepath"));
+		assertEquals(file2.getCanonicalPath(),resultMsg2.getStringProperty("filepath"));
 		assertEquals("file2.xml",resultMsg2.getStringProperty("filename"));
 		assertEquals(file2Size,resultMsg2.getLongProperty("size"));
 		assertEquals(SAMPLE_TEXT + SAMPLE_TEXT,readMessageContentUTF8(resultMsg2));
@@ -168,27 +145,25 @@ public class SftpReceiverUnitTest {
 	 */
 	@Test
 	public void testNoFilesToReceive() throws FileNotFoundException, Exception{
-		TransferJob job = sftpJobTemplate();
-		job.setSourceUrl("sftp://localhost:"+sftpServer.getPort()+"/files");
+		TransferJob job = fileJobTemplate();
+		job.setSourceUrl("file://"+sourceFolder.getCanonicalPath());
 		job.setSourceFilepattern("*.xml");
 		
-		sftpReceiver.receiveFiles(job);
+		fileReceiver.receiveFiles(job);
 		Message shouldBeNull = jmsTemplate.receive("transfers");
 		assertNull(shouldBeNull);
 		
 		verify(mockedEventRepo,never()).saveAndFlush(any());
 	}
 	
-	protected TransferJob sftpJobTemplate(){
+	protected TransferJob fileJobTemplate(){
 		TransferJob job = new TransferJob();
 		job.setEnabled(true);
 		job.setId(1L);
 		job.setName("test-job");
 		job.setCronExpression("*/5 * * ? * *");
 		job.setSourceFilepattern("*");
-		job.setSourceType(Constants.SFTP_TYPE);
-		job.setSourceUsername(sftpUsername);
-		job.setSourcePassword(sftpPassword);
+		job.setSourceType(Constants.FILE_TYPE);
 		return job;
 	}
 	
@@ -204,4 +179,5 @@ public class SftpReceiverUnitTest {
 		msg.setObjectProperty("JMS_AMQ_SaveStream", bos);
 		return IOUtils.toString(bos.toByteArray(),StandardCharsets.UTF_8.name());
 	}
+
 }

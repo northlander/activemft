@@ -71,6 +71,7 @@ public class FileReceiver extends Receiver{
 		event.setTransferId(transferId);
 		event.setFilename(filename);
 		event.setSize((int) FileUtils.sizeOf(file));
+		final Long fileSize = file.length();
 		
 		event.setState("started");
 		event.setTimestamp(new DateTime());
@@ -90,6 +91,7 @@ public class FileReceiver extends Receiver{
 				msg.setLongProperty("eventId", eventId);
 				msg.setStringProperty("filename", filename);
 				msg.setStringProperty("filepath", filepath);
+				msg.setLongProperty("size", fileSize);
 				return msg;
 			});
 

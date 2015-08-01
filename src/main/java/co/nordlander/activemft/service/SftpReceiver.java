@@ -112,6 +112,7 @@ public class SftpReceiver extends Receiver {
 				msg.setLongProperty("eventId", eventId);
 				msg.setStringProperty("filename", filename);
 				msg.setStringProperty("filepath", filepath);
+				msg.setLongProperty("size", dirEntry.attributes.size);
 				return msg;
 			});
 
